@@ -477,3 +477,102 @@ function jsonParser(req, res, next) {
 }
 ```
 
+# 三、流式请求
+
+`response.data.on` 主要用于**监听流式响应（stream response）**，其中 `.on` 是 Node.js **EventEmitter** 事件监听的方法。在 `axios` 发送请求时，如果 `responseType` 设置为 `"stream"`，`response.data` 就变成了一个可读流（Readable Stream）。
+
+------
+
+## **1. 语法解释**
+
+```
+typescript
+
+
+复制编辑
+response.data.on("event", callback)
+```
+
+- `response.data` 是 **可读流（Readable Stream）**。
+- `.on("event", callback)` 监听某个事件，**当事件发生时，执行回调函数 `callback`**。
+- 适用于 **流式数据处理**，通常用于处理大文件、音视频流、服务器推送消息（如 SSE）、AI 语言模型流式响应等。
+
+------
+
+## **2. `response.data.on("data", callback)`**
+
+```
+typescript复制编辑response.data.on("data", (chunk: Buffer) => {
+    console.log("收到数据块:", chunk.toString());
+});
+```
+
+- **监听 `"data"` 事件**：每当有新的数据块到达时，`callback` 就会被调用。
+- **参数 `chunk: Buffer`**：每次返回的数据是一个 `Buffer` 类型的**二进制数据块**。
+- **`chunk.toString()`**：转换为字符串，以便解析文本。
+
+**示例**：
+
+```
+typescript复制编辑response.data.on("data", (chunk: Buffer) => {
+    console.log("收到的数据片段:", chunk.toString());
+});
+```
+
+⚡ **用途**：用于**逐步接收数据**，适用于 AI API、流式传输、日志监听等。
+
+------
+
+## **3. `response.data.on("end", callback)`**
+
+```
+typescript复制编辑response.data.on("end", () => {
+    console.log("数据传输完成");
+});
+```
+
+- **监听 `"end"` 事件**：数据流完成，服务器不再发送新数据。
+- **适用于流式传输的终止标志**。
+
+**示例**：
+
+```
+typescript复制编辑response.data.on("end", () => {
+    console.log("所有数据接收完毕");
+});
+```
+
+⚡ **用途**：用于**在数据流结束后执行操作**（比如关闭连接、合并数据等）。
+
+------
+
+## **4. `response.data.on("error", callback)`**
+
+```
+typescript复制编辑response.data.on("error", (err) => {
+    console.error("发生错误:", err);
+});
+```
+
+- **监听 `"error"` 事件**：当请求失败或数据流中断时触发。
+- **参数 `err`**：错误对象，包含错误信息。
+
+⚡ **用途**：**捕获数据流错误**，防止应用崩溃。
+
+------
+
+## **5. 完整示例**
+
+```
+typescript复制编辑response.data.on("data", (chunk: Buffer) => {
+    console.log("收到数据:", chunk.toString());
+});
+
+response.data.on("end", () => {
+    console.log("数据接收完毕");
+});
+
+response.data.on("error", (err) => {
+    console.error("数据流错误:", err);
+});
+```

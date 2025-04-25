@@ -880,3 +880,185 @@ currentDate.setMilliseconds(500);  // 设置毫秒为 500
 ```
 const utcHours = currentDate.getUTCHours();  // 获取当前时间的 UTC 小时部分
 ```
+
+# 十一、Map和Set的方法
+
+## 1. `Map` 方法
+
+`Map` 是一种存储键值对的数据结构，键和值都可以是任何类型的对象。以下是 `Map` 提供的所有常用方法：
+
+### 基本方法
+
+- **`set(key, value)`**
+   添加一个键值对到 `Map` 中，如果键已存在，则更新其对应的值。
+
+  ```
+  let map = new Map();
+  map.set('name', 'Alice');
+  map.set(1, 'One');
+  ```
+
+- **`get(key)`**
+   获取指定键的值，如果键不存在，则返回 `undefined`。
+
+  ```
+  map.get('name'); // 'Alice'
+  ```
+
+- **`has(key)`**
+   判断 `Map` 中是否包含指定的键。返回 `true` 或 `false`。
+
+  ```
+  map.has('name'); // true
+  ```
+
+- **`delete(key)`**
+   删除 `Map` 中指定键的键值对。如果删除成功，返回 `true`；如果键不存在，返回 `false`。
+
+  ```
+  map.delete('name'); // true
+  ```
+
+- **`clear()`**
+   清空 `Map` 中的所有键值对。
+
+  ```
+  map.clear(); // 清空所有键值对
+  ```
+
+### 遍历方法
+
+- **`keys()`**
+   返回一个包含所有键的迭代器。
+
+  ```
+  let keys = map.keys(); // 返回一个迭代器
+  for (let key of keys) {
+    console.log(key); // 输出所有键
+  }
+  ```
+
+- **`values()`**
+   返回一个包含所有值的迭代器。
+
+  ```
+  let values = map.values();
+  for (let value of values) {
+    console.log(value); // 输出所有值
+  }
+  ```
+
+- **`entries()`**
+   返回一个包含所有键值对的迭代器，每项是一个包含 `[key, value]` 的数组。
+
+  ```
+  let entries = map.entries();
+  for (let entry of entries) {
+    console.log(entry); // 输出 [key, value] 数组
+  }
+  ```
+
+- **`forEach(callback)`**
+   对 `Map` 中的每个键值对执行回调函数。
+
+  ```
+  map.forEach((value, key) => {
+    console.log(key, value);
+  });
+  ```
+
+### 属性
+
+- **`size`**
+   返回 `Map` 中键值对的数量。
+
+  ```
+  map.size; // 返回键值对数量
+  ```
+
+## 2. `Set` 方法
+
+`Set` 是一个集合，它只存储唯一的值，每个值只能出现一次。以下是 `Set` 提供的所有常用方法：
+
+### 基本方法
+
+- **`add(value)`**
+   向 `Set` 中添加一个元素。如果元素已存在，`Set` 不会添加重复的值。
+
+  ```
+  let set = new Set();
+  set.add(1);
+  set.add(2);
+  set.add(1); // 1 已存在，不会重复添加
+  ```
+
+- **`has(value)`**
+   判断 `Set` 中是否包含指定的元素。返回 `true` 或 `false`。
+
+  ```
+  set.has(1); // true
+  ```
+
+- **`delete(value)`**
+   删除 `Set` 中指定的元素。如果删除成功，返回 `true`；如果元素不存在，返回 `false`。
+
+  ```
+  set.delete(1); // true
+  ```
+
+- **`clear()`**
+   清空 `Set` 中的所有元素。
+
+  ```
+  set.clear(); // 清空所有元素
+  ```
+
+### 遍历方法
+
+- **`values()`**
+   返回一个包含所有元素的迭代器。
+
+  ```
+  let values = set.values();
+  for (let value of values) {
+    console.log(value); // 输出所有值
+  }
+  ```
+
+- **`keys()`**
+   和 `values()` 方法相同，因为 `Set` 中的每个元素本身就是一个值。
+
+  ```
+  let keys = set.keys(); // 返回一个迭代器
+  for (let key of keys) {
+    console.log(key); // 输出所有元素
+  }
+  ```
+
+- **`entries()`**
+   返回一个包含所有元素的迭代器，每项是 `[value, value]` 的数组。
+
+  ```
+  let entries = set.entries();
+  for (let entry of entries) {
+    console.log(entry); // 输出 [value, value] 数组
+  }
+  ```
+
+- **`forEach(callback)`**
+   对 `Set` 中的每个元素执行回调函数。
+
+  ```
+  set.forEach(value => {
+    console.log(value);
+  });
+  ```
+
+### 属性
+
+- **`size`**
+   返回 `Set` 中元素的数量。
+
+  ```
+  set.size; // 返回元素数量
+  ```
